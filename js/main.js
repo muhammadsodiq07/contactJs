@@ -1,44 +1,139 @@
-let form = document.querySelector('#formOne');
-let firstNameInput = document.querySelector("#inputName");
-let phoneInput = document.querySelector("#inputPhone");
-let caticInput = document.querySelector("#cat");
-let tbody = document.querySelector("#tbody");
-let all = document.querySelector('.allContact')
-let friend = document.querySelector('.friendsContact')
-let family = document.querySelector('.familyContact')
-let najot = document.querySelector('.najotContact')
 
-let firstNameOutput = document.querySelector("#firstName");
-let phonePutput = document.querySelector("#phoneId");
-let idOutput = document.querySelector("#id");
-let caticOut = document.querySelector("#caticoriusId");
-let idVal = 2;    
+let user_name = document.querySelector('.contact__name');
+let user_relate = document.querySelector('.contact__relationship');
+let user_phone = document.querySelector('.contact__phone');
+let add_btn = document.querySelector('.contact__btn');
+let friend = document.querySelector('.friend')
+let family = document.querySelector('.family')
+let relative = document.querySelector('.relative')
+let classmate= document.querySelector('.classmate')
+let all = document.querySelector('.all')
+let contact_list = document.querySelector('.list')
+let contacts = []
 
 
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
+add_btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    
+    if (user_name.value != '' && user_relate.value != '' && user_phone.value != '') {
+        let user = {
+            userName : user_name.value,
+            userRelate : user_relate.value,
+            userPhone : user_phone.value
+        }
 
-  let firstNameVal = firstNameInput.value;
-  let phoneVal = phoneInput.value;
-  let catttVal = caticInput.value;
+        let item = document.createElement("li");
+        let header3 = document.createElement("h3");
+        let paragraph = document.createElement("p");
+        let anchor = document.createElement("a");
+        let icons = document.createElement('div')
+        
+        header3.textContent = user.userName;
+        paragraph.textContent = user.userRelate;
+        anchor.textContent = user.userPhone;
 
-  let tar = document.createElement('tr');
-  tar.innerHTML = `
-  <th scope="row" id="id">${idVal}</th>
-  <td id="firstName">${firstNameVal}</td>
-  <td id="phoneId">
-    <a class="phone" href="tel: +99890911-11-11">
-        ${phoneVal}
-    </a>
-  </td>
-  <td id="caticoriusId">${catttVal}</td>
-   `
-  tbody.appendChild(tar);
+        header3.classList.add('name');
+        paragraph.classList.add('relation');
+        anchor.classList.add('phone');
+        anchor.setAttribute('href', 'tel:+998909270558')
+        item.classList.add('list__item')
+
+        item.appendChild(header3)
+        item.appendChild(icons)
+        item.appendChild(anchor)
+        item.appendChild(paragraph)
+
+        contact_list.appendChild(item)
+
+        contacts.push(user)
+        console.log(item)
+        console.log(contacts)
+    }
+
+    user_name.value = '';
+    user_relate.value = '';
+    user_phone.value = '';
+})
+
+friend.addEventListener('click', (e) => {
+    let items = document.getElementsByTagName('li')
+    Array.from(items).forEach(function (item) {
+        let itemName = item.lastElementChild.textContent;
+        item.style.display = 'block'
+    });
+    Array.from(items).forEach(function (item) {
+        let itemName = item.lastElementChild.textContent;
+        item.style.display = 'block'
+        if (itemName != 'Friend') {
+            item.style.display = 'none'
+        }
+    });
+})
+
+family.addEventListener('click', (e) => {
+    let items = document.getElementsByTagName('li')
+    Array.from(items).forEach(function (item) {
+        let itemName = item.lastElementChild.textContent;
+        item.style.display = 'block'
+    });
+    Array.from(items).forEach(function (item) {
+        let itemName = item.lastElementChild.textContent;
+        item.style.display = 'block'
+        if (itemName != 'Family') {
+            item.style.display = 'none'
+        }
+    });
+})
+
+classmate.addEventListener('click', (e) => {
+    let items = document.getElementsByTagName('li')
+    Array.from(items).forEach(function (item) {
+        let itemName = item.lastElementChild.textContent;
+        item.style.display = 'block'
+    });
+    Array.from(items).forEach(function (item) {
+        let itemName = item.lastElementChild.textContent;
+        if (itemName != 'Classmate') {
+            item.style.display = 'none'
+        }
+    });
+})
+
+relative.addEventListener('click', (e) => {
+    let items = document.getElementsByTagName('li')
+    Array.from(items).forEach(function (item) {
+        let itemName = item.lastElementChild.textContent;
+        item.style.display = 'block'
+    });
+    Array.from(items).forEach(function (item) {
+        let itemName = item.lastElementChild.textContent;
+        if (itemName != 'Najot Talim') {
+            item.style.display = 'none'
+        }
+    });
+})
+
+all.addEventListener('click', (e) => {
+    let items = document.getElementsByTagName('li')
+    Array.from(items).forEach(function (item) {
+        let itemName = item.lastElementChild.textContent;
+        item.style.display = 'block'
+    });
+})
 
 
-  firstNameInput.value = "";
-  phoneInput.value = "";
-  caticInput.value = "";
-  idVal++;
+// searching elements
+let searchInput = document.getElementById('search');
+let itemList = document.getElementsByTagName('li');
+
+searchInput.addEventListener('keyup', (e) => {
+    let text = e.target.value.toLowerCase()
+    Array.from(itemList).forEach(function (item) {
+        let listItem = item.firstElementChild.textContent;
+        if (listItem.toLowerCase().indexOf(text) != -1) {
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none'
+        }
+    })
 });
-
