@@ -122,7 +122,7 @@ a {
 .contact__new,
 .contact__list-wrap {
   padding: 20px;
-  height: 540px;
+  height: auto;
   -ms-flex-preferred-size: 45%;
       flex-basis: 45%;
   background: #fdfdfd;
